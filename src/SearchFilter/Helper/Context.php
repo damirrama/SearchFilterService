@@ -100,6 +100,9 @@ class Context {
 		$this->request->getSession()->set($this->getSearchFilterSessionKey(), $searchFilterValue);
 	}
 
+	/**
+	 * saving the $_POST search value to the $_SESSION if any available
+	 */
 	public function setSearchFilterValueFromRequest() {
 
 		if ($this->request->request->has($this->getSearchFilterPostMethodKey())) {
@@ -110,10 +113,14 @@ class Context {
 	}
 
 	/**
+	 * if no $key passed, the current context key will be used
+	 *
+	 * @param string $key
+	 *
 	 * @return string
 	 */
-	public function getSearchFilterValue() {
-		return $this->request->getSession()->get($this->getSearchFilterSessionKey(), false);
+	public function getSearchFilterValue($key = '') {
+		return $this->request->getSession()->get($key ?: $this->getSearchFilterSessionKey(), false);
 	}
 
 	/**
